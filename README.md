@@ -5,11 +5,11 @@ A mild refresher for Jenkins.
 ## Glossary
 
 * Master Server: Controls the pipelines and schedules Builds
-* Agents/Minions: Execute the builds
+* Agents/Nodes: Execute the builds
 * Permanent Agents: Dedicated servers for running jobs
 * Cloud Agents: Ephemeral Agents on Docker/Kubernetes/AWS Fleet Manager
-* Freestyle Build: Simple scripts that are triggered on an event like Github Commit
-* Pipelines: A more complex (multi-stage) workflows (eg: Clone, Build, Test, Package, Deploy)
+* Freestyle Build: Simple scripts that are triggered on an event like GitHub Commit
+* Pipelines: More complex (multi-stage) workflows (eg: Clone, Build, Test, Package, Deploy)
 
 ## 1. Installing Jenkins (Docker)
 
@@ -39,8 +39,6 @@ docker run --name jenkins-docker --detach \
 
 Start the Jenkins container (Master Server)
 
-
-
 ```bash
 docker run --name jenkins-blueocean --restart=on-failure --detach \
   --network jenkins \
@@ -60,7 +58,7 @@ A few details on the docker run commands we executed just now:
 - Uses the "jenkins" network we created earlier for inter-container connectivity
 - Binds to the DIND container over tcp://docker:2376
 
-# 2. Initial Setup
+## 2. Initial Setup
 
 Get the initial admin password
 
@@ -83,7 +81,7 @@ You will be asked to "Create First Admin User"
 
 Leave "Instance Configuration" at its default "http://localhost:8080/"
 
-That's it! You have setup Jenkins.
+That's it! You have set up Jenkins.
 
 ## References
 - [Jenkins Tutorial - by DevOps Journey](https://www.youtube.com/watch?v=6YZvp2GwT0A)
