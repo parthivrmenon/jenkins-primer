@@ -83,7 +83,63 @@ Leave "Instance Configuration" at its default "http://localhost:8080/"
 
 That's it! You have set up Jenkins.
 
+## 3. Configure Cloud Agent (Docker)
+
+First, install the "Docker" plugin.
+
+- Go to http://localhost:8080/manage/pluginManager/available
+- Filter for "Cloud Providers"
+- Select **Docker** from the list and click **Install**
+- Restart Jenkins when prompted
+
+Next, create a new Cloud.
+
+- Go to http://localhost:8080/manage/cloud/new
+- Provide name `docker` and select type **Docker**, then click **Create**
+
+### 3a. Configure Docker Cloud
+
+Under **Docker Cloud details**:
+
+- **Docker Host URI**: `tcp://docker:2376`
+- **Server credentials**: Add TLS credentials (see below)
+
+To add TLS credentials, retrieve the certs from the running Jenkins container:
+
+```bash
+docker exec jenkins-blueocean cat /certs/client/ca.pem
+docker exec jenkins-blueocean cat /certs/client/cert.pem
+docker exec jenkins-blueocean cat /certs/client/key.pem
+```
+
+- Click **Add** next to Server credentials → **Jenkins**
+- Kind: **Docker Host Certificate Authentication**
+- Paste the contents of `ca.pem`, `cert.pem`, and `key.pem` into the respective fields
+- Click **Add**, then select the new credential from the dropdown
+
+Click **Test Connection** — you should see the Docker version returned, confirming connectivity.
+
+> **Note**: If Test Connection fails with `UnknownHostException: docker`, ensure the `jenkins-docker` (DIND) container is running and on the `jenkins` network.
+> ```bash
+> docker network inspect jenkins --format '{{range .Containers}}{{.Name}} {{end}}'
+> ```
+
+### 3b. Configure Docker Agent Template
+
+Scroll down to **Docker Agent templates** and click **Add Docker Template**.
+
+- **Labels**: `python-agent` (used to target this agent in pipelines)
+- **Enabled**: checked
+- **Docker Image**: `pluto92/jenkins-agent-python:3.12`
+- **Instance Capacity**: `2` (max concurrent agents)
+- **Remote File System Root**: `/home/jenkins/agent`
+
+Click **Save**.
+
+
 ## References
 - [Jenkins Tutorial - by DevOps Journey](https://www.youtube.com/watch?v=6YZvp2GwT0A)
+- [Jenkins Tutorial - Repo](https://github.com/devopsjourney1/jenkins-101)
 - [Docs - Installing Jenkins](https://www.jenkins.io/doc/book/installing/)
+- [Docs - Jenkins Environment Variables](http://localhost:8080/env-vars.html/)
 
