@@ -24,6 +24,7 @@ pipeline {
                 sh '''
                 python3 src/helloworld.py
                 python3 src/helloworld.py --name Parthiv
+                python3 src/helloworld.py --name Adarsha
                 '''
             }
         }
