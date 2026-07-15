@@ -4,9 +4,9 @@ pipeline {
             label 'python-agent'
             }
       }
-    // triggers {
-    //     pollSCM('*/2 * * * *')
-    // }
+    triggers {
+        pollSCM('*/2 * * * *')
+    }
     stages {
         stage('Build') {
             steps {
