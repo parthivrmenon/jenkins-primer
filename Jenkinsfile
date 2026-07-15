@@ -4,9 +4,9 @@ pipeline {
             label 'python-agent'
             }
       }
-    triggers {
-        pollSCM('*/2 * * * *')
-    }
+    // triggers {
+    //     pollSCM('*/2 * * * *')
+    // }
     stages {
         stage('Test') {
             steps {
@@ -18,9 +18,20 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Deliver....'
+                echo 'Build....'
                 sh '''
-                echo "doing delivery stuff.."
+                cd src
+                pip install -r requirements.txt
+                pip freeze
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh '''
+                python3 src/helloworld.py
+                python3 src/helloworld.py --name Parthiv
                 '''
             }
         }
