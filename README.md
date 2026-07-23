@@ -13,18 +13,29 @@ A mild refresher for Jenkins.
 
 ## 1. Installing Jenkins (Docker)
 
-Create the Docker network
+<!-- Create the Docker network
 
 ```bash
 docker network create jenkins
-```
+``` -->
 
 Build the Jenkins image
 
 ```bash
-docker build -t my-jenkins:latest .
+docker build -t my-jenkins .
 ```
 
+Start containers
+```bash
+docker compose up -d
+```
+
+To stop containers
+
+```bash
+docker compose down
+```
+<!-- 
 Start the Docker-in-Docker sidecar (allows Jenkins to run Docker commands inside pipelines)
 
 ```bash
@@ -49,7 +60,7 @@ docker run --name jenkins-blueocean --restart=on-failure --detach \
   --volume jenkins-data:/var/jenkins_home \
   --volume jenkins-docker-certs:/certs/client:ro \
   my-jenkins:latest
-```
+``` -->
 
 A few details on the docker run commands we executed just now:
 
@@ -63,7 +74,7 @@ A few details on the docker run commands we executed just now:
 Get the initial admin password
 
 ```bash
-docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
+docker exec my-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 Open http://localhost:8080 in your browser and enter the password to unlock Jenkins server.
@@ -107,9 +118,9 @@ Under **Docker Cloud details**:
 To add TLS credentials, retrieve the certs from the running Jenkins container:
 
 ```bash
-docker exec jenkins-blueocean cat /certs/client/ca.pem
-docker exec jenkins-blueocean cat /certs/client/cert.pem
-docker exec jenkins-blueocean cat /certs/client/key.pem
+docker exec my-jenkins cat /certs/client/ca.pem
+docker exec my-jenkins cat /certs/client/cert.pem
+docker exec my-jenkins cat /certs/client/key.pem
 ```
 
 - Click **Add** next to Server credentials → **Jenkins**
@@ -138,6 +149,7 @@ Click **Save**.
 
 
 ## References
+- [Jenkins Tutorial](https://github.com/vdespa/install-jenkins-docker) 
 - [Jenkins Tutorial - by DevOps Journey](https://www.youtube.com/watch?v=6YZvp2GwT0A)
 - [Jenkins Tutorial - Repo](https://github.com/devopsjourney1/jenkins-101)
 - [Docs - Installing Jenkins](https://www.jenkins.io/doc/book/installing/)
