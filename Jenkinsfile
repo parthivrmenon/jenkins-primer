@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     // agent { 
     //     node {
     //         label 'python-agent'
