@@ -4,9 +4,9 @@ pipeline {
             label 'python-agent'
             }
       }
-    triggers {
-        pollSCM('*/2 * * * *')
-    }
+    // triggers {
+    //     pollSCM('*/2 * * * *')
+    // }
     stages {
         stage('Build') {
             steps {
@@ -27,6 +27,12 @@ pipeline {
                 python3 src/helloworld.py --name Adarsha
                 '''
             }
+        }
+    }
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
         }
     }
 }
