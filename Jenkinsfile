@@ -22,10 +22,11 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                python3 src/helloworld.py
-                python3 src/helloworld.py --name Parthiv
-                python3 src/helloworld.py --name Adarsha
+                python3 src/helloworld.py > report.txt 2>&1
+                python3 src/helloworld.py --name Parthiv >> report.txt 2>&1
+                python3 src/helloworld.py --name Adarsha >> report.txt 2>&1
                 '''
+                archiveArtifacts artifacts: 'report.txt'
             }
         }
     }
