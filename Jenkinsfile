@@ -23,10 +23,8 @@ pipeline {
                 cleanWs()
                 echo "Testing.."
                 sh '''
-                touch hello.txt
-                python3 src/helloworld.py > report.txt 2>&1
-                python3 src/helloworld.py --name Parthiv >> report.txt 2>&1
-                python3 src/helloworld.py --name Adarsha >> report.txt 2>&1
+                touch report.txt
+                python3 src/helloworld.py > report.txt
                 '''
             }
         }
