@@ -20,7 +20,6 @@ pipeline {
         }
         stage('Test') {
             steps {
-                cleanWs()
                 echo "Testing.."
                 sh '''
                 touch report.txt
