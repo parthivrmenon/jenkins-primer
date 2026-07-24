@@ -31,10 +31,10 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            echo 'Archiving report...'
-            archiveArtifacts artifacts: 'hello.txt'
-        }
-    }
+    // post {
+    //     always {
+    //         echo 'Archiving report...'
+    //         archiveArtifacts artifacts: 'hello.txt'
+    //     }
+    // }
 }
