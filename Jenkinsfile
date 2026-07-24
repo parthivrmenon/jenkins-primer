@@ -10,11 +10,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Build....'
+                echo 'Building from requirements.txt'
                 sh '''
                 cd src
                 pip install -r requirements.txt
-                pip freeze
                 '''
             }
         }
