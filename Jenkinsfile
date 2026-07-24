@@ -24,6 +24,7 @@ pipeline {
                 echo "Testing.."
                 sh '''
                 touch report.txt
+                ls -l
                 python3 src/helloworld.py > report.txt
                 '''
             }
