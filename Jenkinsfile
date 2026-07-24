@@ -23,6 +23,7 @@ pipeline {
                 cleanWs()
                 echo "Testing.."
                 sh '''
+                touch hello.txt
                 python3 src/helloworld.py > report.txt 2>&1
                 python3 src/helloworld.py --name Parthiv >> report.txt 2>&1
                 python3 src/helloworld.py --name Adarsha >> report.txt 2>&1
@@ -33,7 +34,7 @@ pipeline {
     post {
         always {
             echo 'Archiving report...'
-            archiveArtifacts artifacts: 'report.txt'
+            archiveArtifacts artifacts: 'hello.txt'
         }
     }
 }
